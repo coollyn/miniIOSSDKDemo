@@ -1,0 +1,3 @@
+/Users/coollyn/codebase/miniIOSSDKDemo/AVEngine/build/CMakeFiles/AVEngine.dir
+/Users/coollyn/codebase/miniIOSSDKDemo/AVEngine/build/CMakeFiles/edit_cache.dir
+/Users/coollyn/codebase/miniIOSSDKDemo/AVEngine/build/CMakeFiles/rebuild_cache.dir
