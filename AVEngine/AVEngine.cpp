@@ -35,13 +35,18 @@ static long CreateEngine(const std::string& videoFilePath) {
     int ret = avformat_open_input(&fmtCtx, videoFilePath.c_str(), nullptr, nullptr);
     if (ret < 0) {
         printf("open error: %d\n", ret);
-        return -1;
+        return 0;
     }
 
     ret = avformat_find_stream_info(fmtCtx, nullptr);
     if (ret < 0) {
         printf("find_stream_info error: %d\n", ret);
-        return -1;
+        return 0;
+    }
+
+    for (unsigned i = 0; i < fmtCtx->nb_streams; ++i) {
+        AVStream* st = fmtCtx->streams[i];
+        printf("Stream %d: codec_id=%d, width=%d, height=%d\n", i, st->codecpar->codec_id, st->codecpar->width, st->codecpar->height);
     }
 
     av_dump_format(fmtCtx, 0, videoFilePath.c_str(), 0);
@@ -51,5 +56,5 @@ static long CreateEngine(const std::string& videoFilePath) {
 
     std::cout << "CreateEngine, end" << std::endl;
 
-    return 0;
+    return 1;
 }
