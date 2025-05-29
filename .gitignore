@@ -3,7 +3,6 @@
 **/*.framework/
 
 # Large binary libraries
-**/lib/*.a
 **/lib/*.dylib
 **/lib/*.so
 

@@ -8,6 +8,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     
     private var engineHandle: NSNumber?
     private var AVEngineAssets = "AVEngineAssets/"
+    private var dstVideoFile = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,6 +16,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     }
     
     private func setupUI() {
+        prepareFile()
         setupStartButton()
     }
     
@@ -28,6 +30,16 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     }
     
     @objc private func startEngine() {
+        engineHandle = AVEngine.createEngine(dstVideoFile)
+        if engineHandle != nil {
+            print("Engine created successfully with handle: \(engineHandle!)")
+        } else {
+            print("Failed to create engine")
+            return
+        }
+    }
+    
+    func prepareFile() {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let assetsDir = documentsURL.appendingPathComponent(AVEngineAssets)
         try? FileManager.default.createDirectory(
@@ -37,7 +49,6 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
         )
         
         let srcVideoFile =  "video-raw.mp4"
-        var dstVideoFile = ""
         
         if let srcURL = Bundle.main.url(forResource: srcVideoFile, withExtension: nil) {
             let dstURL = assetsDir.appendingPathComponent(srcVideoFile)
@@ -59,14 +70,6 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
         }
         
         print("文件保护级别:", Bundle.main.object(forInfoDictionaryKey: "NSFileProtectionKey") as? String ?? "未设置")
-
-        engineHandle = AVEngine.createEngine(dstVideoFile)
-        if engineHandle != nil {
-            print("Engine created successfully with handle: \(engineHandle!)")
-        } else {
-            print("Failed to create engine")
-            return
-        }
     }
     
     func verifyFileIntegrity(sourceURL: URL, destURL: URL) -> Bool {
