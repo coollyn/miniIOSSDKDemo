@@ -1,0 +1,17 @@
+# Build products
+**/build/
+**/*.framework/
+
+# Large binary libraries
+**/lib/*.a
+**/lib/*.dylib
+**/lib/*.so
+
+# Video assets
+**/Asset/*.mp4
+**/Asset/*.mov
+
+# Xcode
+.DS_Store
+*.xcodeproj/
+*.xcworkspace/ 
