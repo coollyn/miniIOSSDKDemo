@@ -1,5 +1,0 @@
-framework module AVEngine {
-    umbrella header "AVEngine.h"
-    export *
-    module * { export * }
-} 
