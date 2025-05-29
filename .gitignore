@@ -12,3 +12,6 @@
 
 # Xcode
 .DS_Store
+
+**/miniIOSApp.xcodeproj/project.xcworkspace/xcuserdata
+**/miniIOSApp.xcodeproj/xcuserdata/coollyn.xcuserdatad

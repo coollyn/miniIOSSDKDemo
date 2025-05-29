@@ -1,5 +1,5 @@
 /*
- * Version macros.
+ * copyright (c) 2017 Raymond Zheng
  *
  * This file is part of FFmpeg.
  *
@@ -18,14 +18,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-#ifndef POSTPROC_VERSION_MAJOR_H
-#define POSTPROC_VERSION_MAJOR_H
+#ifndef AVUTIL_DNS_CACHE_H
+#define AVUTIL_DNS_CACHE_H
 
-/**
- * @file
- * Libpostproc version macros
- */
+#include "libavutil/log.h"
+#include <stdint.h>
 
-#define LIBPOSTPROC_VERSION_MAJOR  56
+typedef struct DnsCacheEntry {
+    volatile int ref_count;
+    volatile int delete_flag;
+    int64_t expired_time;
+    struct addrinfo *res;  // construct by private function, not support ai_next and ai_canonname, can only be released using free_private_addrinfo
+} DnsCacheEntry;
 
-#endif /* POSTPROC_VERSION_MAJOR_H */
+DnsCacheEntry *get_dns_cache_reference(const char *uri);
+int release_dns_cache_reference(const char *uri, DnsCacheEntry **p_entry);
+int remove_dns_cache_entry(const char *uri);
+int add_dns_cache_entry(const char *uri, struct addrinfo *cur_ai, int64_t timeout);
+
+#endif /* AVUTIL_DNS_CACHE_H */
